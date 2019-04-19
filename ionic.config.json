@@ -1,6 +1,8 @@
 {
   "name": "twitterApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "f92424e0"
 }
