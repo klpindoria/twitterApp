@@ -18,9 +18,22 @@ export class AppComponent {
   }
 
   initializeApp() {
-    if(this.platform.is("cordova")){
+    if(this.platform.is("cordova" || "android")){
       this.platform.ready().then(() => {
+        // stops status bar overlaying view
+        this.statusBar.overlaysWebView(false);
+        // set status bar to black
+        this.statusBar.styleBlackOpaque();
+        // hides startup splashscreen
+        this.splashScreen.hide();
+      });
+    } else if (this.platform.is("ios")) {
+      this.platform.ready().then(() => {
+        // stops status bar overlaying view
+        this.statusBar.overlaysWebView(false);
+        // set status bar to black
         this.statusBar.styleDefault();
+        // hides startup splashscreen
         this.splashScreen.hide();
       });
     } else {

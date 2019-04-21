@@ -31,7 +31,7 @@ export class Tab1Page {
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          Tab1Page.trendyLocation = JSON.parse(xhr.responseText);
+          Tab1Page.trendyLocation = JSON.parse(xhr.responseText).splice(1, 10);
           console.log(Tab1Page.trendyLocation);
           let htmlString: string = "";
           for (let i = 0; i < Tab1Page.trendyLocation.length; i++){
@@ -57,10 +57,9 @@ export class Tab1Page {
     xhr.send(null);
     const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
-    return Tab1Page.trendyLocation;
   }
 
-  static getPictures(query: String): string{
+  static getPictures(query: string): string{
     //Loop the following
     let xhr = new XMLHttpRequest();
     var picture: any;
