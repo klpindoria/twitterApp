@@ -9,21 +9,3 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
-
-// Applied accorss the entire app
-:root {
-  --bgColor: #ffffff;
-  --textColor: #000000;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bgColor: #000000;
-    --textColor: #ffffff;
-  }
-}
-
-html {
-  background: var(--bgColor);
-  color: var(--textColor);
-}
