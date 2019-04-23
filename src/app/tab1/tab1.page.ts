@@ -36,12 +36,14 @@ export class Tab1Page {
           let htmlString: string = "";
           for (let i = 0; i < Tab1Page.trendyLocation.length; i++){
             let picUrl = Tab1Page.getPictures(Tab1Page.trendyLocation[i].name);
+            let weather = Tab1Page.getWeather(Tab1Page.trendyLocation[i].name);
             htmlString += "<ion-card><ion-img src=\""+ picUrl +"\"></ion-img>"+
             "<ion-card-header><ion-card-subtitle>Location "+ (i+1) +
             "</ion-card-subtitle><ion-card-title id=\"card-title\">"+ Tab1Page.trendyLocation[i].name + ", " + Tab1Page.trendyLocation[i].country +
             "</ion-card-title></ion-card-header>"+
-            "<ion-card-content>Some content from API</ion-card-content>"+
-            "</ion-card>";
+            "<ion-card-content><img style=\"width: 50px; height: 50px;\" src=\"http://openweathermap.org/img/w/"+ weather.weather[0].icon +".png\"</img><br>"+
+            "Current Weather Condition: "+ weather.weather[0].main +"<br>Currently experiencing temperatures of <strong>"+ weather.main.temp+ "°C</strong> with "+ weather.weather[0].description +
+            "</ion-card-content></ion-card>";
           }
           document.getElementById("content").innerHTML = htmlString;
 
@@ -83,6 +85,27 @@ export class Tab1Page {
     return picture;
   }
 
-  presentAlert(){}
+  static getWeather(locationQuery: string) {
+    //Loop the following
+    let xhr = new XMLHttpRequest();
+    var weather: any;
+    xhr.open("GET", "http://api.openweathermap.org/data/2.5/weather?q="+locationQuery+"&units=metric&APPID=16ef3417b502bd1a7964ca8b7910d0db", false);
 
+    xhr.onload = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          weather = JSON.parse(xhr.responseText);
+          console.log(weather);
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+    xhr.onerror = function () {
+      console.error(xhr.statusText);
+    };
+
+    xhr.send(null);
+    return weather;
+  }
 }
